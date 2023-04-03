@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:meals_app/models/meal.dart';
 
 class MealItem extends StatelessWidget {
+  final String mealId;
   final String title;
   final String imageUrl;
   final int duration;
@@ -11,7 +12,8 @@ class MealItem extends StatelessWidget {
   final Affordability affordability;
 
   MealItem(
-      {required this.title,
+      {required this.mealId,
+      required this.title,
       required this.imageUrl,
       required this.duration,
       required this.complexity,
@@ -42,7 +44,7 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectedMeal,
+      onTap: () => selectedMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4,
@@ -127,5 +129,7 @@ class MealItem extends StatelessWidget {
     );
   }
 
-  void selectedMeal() {}
+  void selectedMeal(BuildContext context) {
+    Navigator.of(context).pushNamed('/detail', arguments: mealId);
+  }
 }
